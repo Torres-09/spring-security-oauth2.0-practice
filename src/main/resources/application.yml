@@ -10,14 +10,20 @@ server:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/security
     username: cos
     password: cos1234
-
 
   jpa:
     hibernate:
       ddl-auto: create-drop
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+#        show_sql: true
+
+logging:
+  level:
+    sql: debug
+    org.hibernate.type: trace

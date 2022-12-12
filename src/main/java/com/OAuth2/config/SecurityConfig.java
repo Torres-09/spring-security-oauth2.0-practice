@@ -3,10 +3,18 @@ package com.OAuth2.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity // spring security filter 가 스프링 필터 체인에 등록된다. 여기에 Configuration 있기 때문에 추가하면 오류발생
 public class SecurityConfig{
+
+    // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해준다.
+    @Bean
+    public BCryptPasswordEncoder encodePwd() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -20,8 +28,9 @@ public class SecurityConfig{
 
                 .and()
                 .formLogin()
-                .loginPage("/login");
+                .loginPage("/loginForm");
 
         return httpSecurity.build();
     }
 }
+
