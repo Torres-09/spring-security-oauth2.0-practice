@@ -1,5 +1,7 @@
 package com.OAuth2.config;
 
+import com.OAuth2.config.oauth.PrincipalOauth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 활성화 , preAuthorize 활성화
 public class SecurityConfig{
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
     // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해준다.
     @Bean
     public BCryptPasswordEncoder encodePwd() {
@@ -36,7 +40,9 @@ public class SecurityConfig{
 
                 .and()
                 .oauth2Login()
-                .loginPage("/loginForm");
+                .loginPage("/loginForm")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
 
         return httpSecurity.build();
     }
