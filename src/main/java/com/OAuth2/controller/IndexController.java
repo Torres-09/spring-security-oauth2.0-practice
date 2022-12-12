@@ -28,17 +28,17 @@ public class IndexController {
 
     // spring security 가 해당 주소로 하이재킹함
     @GetMapping("/login")
-    public @ResponseBody String login() {
-        return "login";
+    public String login() {
+        return "loginForm";
     }
 
-    @GetMapping("/signup")
-    public @ResponseBody String signup() {
-        return "signup";
+    @GetMapping("/join")
+    public @ResponseBody String join() {
+        return "join";
     }
 
-    @GetMapping("/signupProc")
-    public @ResponseBody String signupProc() {
+    @GetMapping("/joinProc")
+    public @ResponseBody String joinProc() {
         return "회원가입 완료";
     }
 }
